@@ -15,7 +15,13 @@ public class NetworkService {
         headers.forEach { request.setValue($0.value, forHTTPHeaderField: $0.key) }
 
         do {
-            request.httpBody = try JSONEncoder().encode(body)
+            if let jsonBody = try? JSONEncoder().encode(body),
+               let jsonString = String(data: jsonBody, encoding: .utf8) {
+                print("Enviando JSON:")
+                print(jsonString)
+                request.httpBody = jsonBody
+            }
+            
         } catch {
             completion(.failure(error))
             return

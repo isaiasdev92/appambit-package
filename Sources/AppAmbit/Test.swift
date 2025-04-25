@@ -13,9 +13,9 @@ public class Test {
 
         let request = ConsumerRequest(
             app_key: "3552ae64-c9de-4a49-9445-86f0f6dddfcb",
-            device_id: "00008101-000E17360C84001E",
+            device_id: generateDeviceId(),
             device_model: "iPhone 18",
-            user_id: "00008101-000E17360C84001E",
+            user_id: "00008101-000E17360C8422AE",
             user_email: "jesusmarquez.mc@gmail.com",
             os: "iOS 18.1",
             country: "US",
@@ -60,5 +60,17 @@ public class Test {
                 completion(false)
             }
         }
+    }
+    
+    func generateDeviceId() -> String {
+        func randomHex(_ length: Int) -> String {
+            let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            return String((0..<length).map { _ in letters.randomElement()! })
+        }
+
+        let part1 = randomHex(8)
+        let part2 = randomHex(16)
+
+        return "\(part1)-\(part2)"
     }
 }
